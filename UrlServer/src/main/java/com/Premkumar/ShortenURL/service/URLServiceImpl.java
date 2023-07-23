@@ -26,7 +26,7 @@ public class URLServiceImpl implements URLService{
         try {
             Url savedUrl = urlRepo.save(url);
             String str = new LogicImplementation().encode(savedUrl.getUrlId());
-            return new CompactURlObject("localhost:8087/" + str);
+            return new CompactURlObject("http://localhost:8087/" + str);
         } catch (Exception e) {
             // Handle any exception that occurs during save
             e.printStackTrace();
