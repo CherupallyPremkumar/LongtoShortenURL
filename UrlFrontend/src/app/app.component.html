@@ -1,0 +1,18 @@
+<div class="container">
+  <h2>URL Shortener</h2>
+  <div class="form-group">
+    <label for="originalUrl">Enter URL:</label>
+    <input type="text" class="form-control" id="originalUrl" [(ngModel)]="url2" name="originalUrl">
+    <button class="btn btn-primary" (click)="generateShortUrl()">Generate Short URL</button>
+  </div>
+
+  <div *ngIf="shortUrl">
+    <p>
+      Short URL: <a [href]="shortUrl" target="_blank">{{ shortUrl }}</a>
+    </p>
+  </div>
+
+  <div *ngIf="errorMessage">
+    <p class="error">{{ errorMessage }}</p>
+  </div>
+</div>
