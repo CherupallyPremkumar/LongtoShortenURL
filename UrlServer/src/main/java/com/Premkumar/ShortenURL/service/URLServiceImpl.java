@@ -4,11 +4,13 @@ import com.Premkumar.ShortenURL.builder.Converstion;
 import com.Premkumar.ShortenURL.dto.CompactURlObject;
 import com.Premkumar.ShortenURL.entity.Url;
 import com.Premkumar.ShortenURL.repository.UrlRepo;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.Random;
 
 @Service
@@ -25,7 +27,7 @@ public class URLServiceImpl implements URLService{
 
         try {
             Url savedUrl = urlRepo.save(url);
-            String str = new LogicImplementation().encode(savedUrl.getUrlId());
+            String str = LogicImplementation.encode(savedUrl.getUrlId());
             return new CompactURlObject("http://localhost:8087/" + str);
         } catch (Exception e) {
             // Handle any exception that occurs during save
@@ -37,11 +39,11 @@ public class URLServiceImpl implements URLService{
     @Override
     public String checkshortestURL(String urlStr) {
         try {
-            long s1 = new LogicImplementation().decode(urlStr);
+            long s1 = LogicImplementation.decode(urlStr);
             Url obj = urlRepo.findById((int) s1)
                     .orElseThrow(() -> new EntityNotFoundException("There is no entity with urlId: " + s1));
 
-            if (obj.getCraeated_date() != null && new Date().getTime() - obj.getCraeated_date().getTime() > 15) {
+            if (false) {
                 urlRepo.delete(obj);
                 return "Time Expired";
             } else {

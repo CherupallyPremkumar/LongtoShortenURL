@@ -9,8 +9,6 @@ import java.util.Date;
 @Component
 public class Converstion {
 
-
-
     public static Url dtoTOEntity(CompactURlObject compactURlObject)
     {
        return   Url.builder()

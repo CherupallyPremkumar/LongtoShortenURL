@@ -4,29 +4,33 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LogicImplementation {
-    private static final String allowedString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private final char[] allowedCharacters = allowedString.toCharArray();
-    private final int base = allowedCharacters.length;
 
-    public String encode(int input){
+
+    private static final String allowedString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+     static   private final char[] allowedCharacters = allowedString.toCharArray();
+    static private final int base = allowedCharacters.length;
+
+   static public String encode(int input){
         var encodedString = new StringBuilder();
         if(input == 0) {
             return String.valueOf(allowedCharacters[0]);
         }
         while (input > 0) {
-            encodedString.append(allowedCharacters[input % base]);
+            int val=input % base;
+            encodedString.append(allowedCharacters[val]);
             input = input / base;
         }
         return encodedString.reverse().toString();
     }
 
-    public long decode(String input) {
+    static public long decode(String input) {
         var characters = input.toCharArray();
         var length = characters.length;
         var decoded = 0;
         var counter = 1;
         for (char character : characters) {
-            decoded += allowedString.indexOf(character) * Math.pow(base, length - counter);
+            double power=Math.pow(base, length - counter);
+            decoded += allowedString.indexOf(character) * power;
             counter++;
         }
         return decoded;
